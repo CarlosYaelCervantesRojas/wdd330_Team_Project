@@ -9,4 +9,4 @@ const product = new ProductDetails(productId, dataSource)
 
 product.init()
 
-console.log(dataSource.findProductById())
+console.log(dataSource.findProductById(productId))
