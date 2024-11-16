@@ -11,11 +11,14 @@ export function getLocalStorage(key) {
 }
 // save data to local storage
 export function setLocalStorage(key, data) {
-  const dataList = getLocalStorage("so-cart") || [];
-
-  dataList.push(data);
-
-  localStorage.setItem(key, JSON.stringify(dataList));
+  localStorage.setItem(key, JSON.stringify([data]));
+}
+// get the product id parameter from the URL
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const productId = urlParams.get(param);
+  return productId;
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
