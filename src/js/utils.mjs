@@ -34,13 +34,38 @@ export function getParams(param) {
   return product;
 }
 // function to take a list of objects and a template and insert the objects as HTML into the DOM
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  const LiHtmlStrings = list.map(templateFn);
+export function renderListWithTemplate(templateCallback, parentElement, list, position = "afterbegin", clear = false) {
+  const LiHtmlStrings = list.map(templateCallback);
   
   if (clear) {
     parentElement.innerHTML = "";
   }
   parentElement.insertAdjacentHTML(position, LiHtmlStrings.join(""));
+}
+// 
+export function renderWithTemplate(template, parentElement, position = "afterbegin", callback) {  
+  parentElement.insertAdjacentHTML(position, template);
+  if (callback) {
+    callback();
+  }
+}
+// 
+export async function loadHeaderFooter() {
+  const mainHeader = document.getElementById("main-header");
+  const mainFooter = document.getElementById("main-footer");
+
+  const headerHtml = await loadTemplate("../partials/header.html");
+  const footerHtml = await loadTemplate("../partials/footer.html");
+
+  renderWithTemplate(headerHtml, mainHeader);
+  renderWithTemplate(footerHtml, mainFooter);
+}
+// 
+async function loadTemplate(path) {
+  const res = await fetch(path);
+  const html = await res.text();
+
+  return html;
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
