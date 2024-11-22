@@ -3,9 +3,9 @@ import { renderListWithTemplate } from "./utils.mjs";
 function productCardTemplate(product) {
     return `
     <li class="product-card">
-        <a href="product_pages/index.html?product=${product.Id}">
+        <a href="../product_pages/index.html?product=${product.Id}">
         <img
-            src="${product.Image}"
+            src="${product.Images.PrimarySmall}"
             alt="Image of ${product.Name}"
         />
         <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -15,19 +15,23 @@ function productCardTemplate(product) {
 }
 
 export default class ProductListing {
-    constructor (category, dataSource, listElement){
+    constructor(category, dataSource, listElement) {
         this.category = category;
         this.dataSource = dataSource;
         this.listElement = listElement;
     }
-    async init(){
-        const list = await this.dataSource.getData();
+    async init() {
+        const list = await this.dataSource.getData(this.category);
 
         this.renderList(list);
     }
-    renderList(list){
-        const tentsIdNedded = ["880RR", "989CG", "985PR", "344YJ"];
-        const filteredList = list.filter((tent) => tentsIdNedded.includes(tent.Id));
-        renderListWithTemplate(productCardTemplate, this.listElement, filteredList);
+
+    renderList(list) {
+        renderListWithTemplate(productCardTemplate, this.listElement, list);
     }
+    // renderList(list) {
+    //     const tentsIdNedded = ["880RR", "989CG", "985PR", "344YJ"];
+    //     const filteredList = list.filter((tent) => tentsIdNedded.includes(tent.Id));
+    //     renderListWithTemplate(productCardTemplate, this.listElement, filteredList);
+    // }
 }
