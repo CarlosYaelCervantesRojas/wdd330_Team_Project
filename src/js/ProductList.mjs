@@ -16,15 +16,17 @@ function productCardTemplate(product) {
 }
 
 export default class ProductListing {
-    constructor (category, dataSource, listElement){
+    constructor (category, dataSource, listElement, sortElemet){
         this.category = category;
         this.dataSource = dataSource;
         this.listElement = listElement;
+        this.sortElemet = sortElemet;
     }
     async init(){
         const list = await this.dataSource.getData(this.category);
         this.renderList(list);
         this.renderCategoryHeading();
+        this.sortElemet.addEventListener("change", (e) => this.sortList(e, list))
     }
     renderList(list){
         renderListWithTemplate(productCardTemplate, this.listElement, list);
@@ -32,5 +34,15 @@ export default class ProductListing {
     renderCategoryHeading(){
         const headingElement = qs("h2");
         renderWithTemplate(`: ${this.category.toUpperCase()}`, headingElement, "beforeend");
+    }
+    sortList(e, list){
+        const selectedValue = e.target.value;
+        if (selectedValue === "name") {
+            const orderedByName = list.sort((product, product2) => product.Name.localeCompare(product2.Name));
+            renderListWithTemplate(productCardTemplate, this.listElement, orderedByName, undefined, true);
+        } if (selectedValue === "price") {
+            const orderedByPrice = list.sort((product, product2) => product.FinalPrice - product2.FinalPrice);
+            renderListWithTemplate(productCardTemplate, this.listElement, orderedByPrice, undefined, true);
+        }
     }
 }

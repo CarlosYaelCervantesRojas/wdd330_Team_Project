@@ -7,6 +7,12 @@ loadHeaderFooter();
 const category = getParam("category");
 const dataSourse = new ProductData();
 const listElement = qs(".product-list");
-const productsList = new ProductListing(category, dataSourse, listElement);
+const sortElemet = qs("#sort-by");
+const productsList = new ProductListing(
+  category,
+  dataSourse,
+  listElement,
+  sortElemet,
+);
 
 productsList.init();
