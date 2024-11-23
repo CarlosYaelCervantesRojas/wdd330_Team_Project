@@ -1,16 +1,17 @@
-import { renderListWithTemplate } from "./utils.mjs";
+import { qs, renderListWithTemplate, renderWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
     return `
     <li class="product-card">
-        <a href="product_pages/index.html?product=${product.Id}">
-        <img
-            src="${product.Image}"
+        <a href="/product_pages/index.html?product=${product.Id}">
+            <img
+            src="${product.Images.PrimaryMedium}"
             alt="Image of ${product.Name}"
-        />
-        <h3 class="card__brand">${product.Brand.Name}</h3>
-        <h2 class="card__name">${product.Name}</h2>
-        <p class="product-card__price">$${product.FinalPrice}</p></a>
+            />
+            <h3 class="card__brand">${product.Brand.Name}</h3>
+            <h2 class="card__name">${product.Name}</h2>
+            <p class="product-card__price">$${product.FinalPrice}</p>
+        </a>
     </li>`;
 }
 
@@ -21,13 +22,15 @@ export default class ProductListing {
         this.listElement = listElement;
     }
     async init(){
-        const list = await this.dataSource.getData();
-
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
+        this.renderCategoryHeading();
     }
     renderList(list){
-        const tentsIdNedded = ["880RR", "989CG", "985PR", "344YJ"];
-        const filteredList = list.filter((tent) => tentsIdNedded.includes(tent.Id));
-        renderListWithTemplate(productCardTemplate, this.listElement, filteredList);
+        renderListWithTemplate(productCardTemplate, this.listElement, list);
+    }
+    renderCategoryHeading(){
+        const headingElement = qs("h2");
+        renderWithTemplate(`: ${this.category.toUpperCase()}`, headingElement, "beforeend");
     }
 }
