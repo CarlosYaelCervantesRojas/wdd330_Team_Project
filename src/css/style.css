@@ -206,19 +206,22 @@ button {
   display: none;
 }
 
-
 fieldset {
   border: 2px solid var(--primary-color);
   border-radius: 1rem;
 }
 
-.checkout__name, .checkout__address, .checkout__payment {
+.checkout__name,
+.checkout__address,
+.checkout__payment {
   display: flex;
   flex-direction: column;
   padding: 1rem 3rem;
 }
 
-.checkout__name input, .checkout__address input, .checkout__payment input {
+.checkout__name input,
+.checkout__address input,
+.checkout__payment input {
   margin-bottom: 1rem;
   height: 2rem;
   border: none;
@@ -226,13 +229,15 @@ fieldset {
   border-bottom: 2px solid var(--primary-color);
 }
 
-.checkout__name input:focus, .checkout__address input:focus,  .checkout__payment input:focus {
+.checkout__name input:focus,
+.checkout__address input:focus,
+.checkout__payment input:focus {
   outline: none;
   border-bottom: 2px solid var(--secondary-color);
 }
 
-#checkoutSubmit{
-  margin-top: .5rem;
+#checkoutSubmit {
+  margin-top: 0.5rem;
 }
 
 .checkout-summary ul {
