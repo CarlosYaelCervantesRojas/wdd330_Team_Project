@@ -12,8 +12,13 @@ qs("#zip").addEventListener(
   myCheckout.calculateOrdertotal.bind(myCheckout),
 );
 
-document.forms["checkout"].addEventListener("submit", (e) => {
+qs("#checkoutSubmit").addEventListener("click", (e) => {
   e.preventDefault();
+  const myForm = document.forms[0];
+  const chk_status = myForm.checkValidity();
+  myForm.reportValidity();
 
-  myCheckout.checkout();
+  if (chk_status) {
+    myCheckout.checkout();
+  }
 });

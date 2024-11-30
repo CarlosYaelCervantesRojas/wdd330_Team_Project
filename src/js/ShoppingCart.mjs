@@ -14,8 +14,11 @@ export default class ShoppingCart {
             
             const total = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0).toFixed(2);
             const totalHtml = totalTemplate(total);
+            const checkoutHtml = chechoutTemplate();
 
-            renderWithTemplate(totalHtml, this.listElement, "afterend", showTotal)
+            renderWithTemplate(totalHtml, this.listElement, "afterend", showTotal);
+            renderWithTemplate(checkoutHtml, qs(".cart-footer"), "afterend");
+
         } else {
             const noArticlesHtml = noArticlesTemplate();
             renderWithTemplate(noArticlesHtml, this.listElement)
@@ -61,5 +64,14 @@ function totalTemplate(total) {
     return `
     <div class="cart-footer hide">
         <p class="cart-total">Total: $${total}</p>
+    </div>`;
+}
+
+function chechoutTemplate() {
+    return`
+    <div class="product-detail__add">
+        <button>
+          <a href="/checkout/index.html"> Checkout </a>
+        </button>
     </div>`;
 }

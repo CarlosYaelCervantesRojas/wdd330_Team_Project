@@ -206,6 +206,11 @@ button {
   display: none;
 }
 
+.product-detail__add button a {
+  text-decoration: none;
+  color: var(--light-grey);
+}
+
 fieldset {
   border: 2px solid var(--primary-color);
   border-radius: 1rem;
@@ -242,6 +247,20 @@ fieldset {
 
 .checkout-summary ul {
   list-style: none;
+}
+
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  margin: 0.2rem;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
 }
 
 @media screen and (min-width: 500px) {
