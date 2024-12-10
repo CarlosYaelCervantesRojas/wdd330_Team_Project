@@ -1,0 +1,28 @@
+:root {
+    /*Fonts*/
+    --principal_font: "Raleway", Arial;
+
+    /*Colors*/
+    --first_color : #3a405a;
+    --second_color: #aec5eb;
+    --third_color : #f9dec9;
+    --forth_color : #e9afa3;
+    --fifth_color : #685044;
+
+    /*Measures PX and EM*/
+    --font_base : 18px;
+    --small_font : 0.8em;
+    --large_font : 1.2em;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--principal_font);
+    font-size: var(--font_base);
+    color: var(--first_color);
+    background-color: var(--second_color);
+}
