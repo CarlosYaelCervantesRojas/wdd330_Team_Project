@@ -62,11 +62,11 @@ export default class CheckoutProcess {
     const services = new ExternalServices();
     try {
       const res = await services.checkout(json);
-      console.log(res);
+      // console.log(res);
       localStorage.removeItem(this.key);
       location.assign("../checkout/success.html");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       removeAllAlerts();
       for (let message in err.messages) {
         alertMessage(err.messages[message]);

@@ -23,6 +23,7 @@ export default class ProductListing {
         this.sortElemet = sortElemet;
     }
     async init(){
+        qs("title").textContent += ` ${this.category}`;
         const list = await this.dataSource.getData(this.category);
         this.renderList(list);
         this.renderCategoryHeading();
