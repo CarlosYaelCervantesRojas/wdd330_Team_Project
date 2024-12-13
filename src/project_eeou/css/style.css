@@ -8,6 +8,7 @@
     --third_color : #f9dec9;
     --forth_color : #e9afa3;
     --fifth_color : #685044;
+    --sixth_color : #030132;
 
     /*Measures PX and EM*/
     --font_base : 18px;
@@ -25,4 +26,76 @@ body {
     font-size: var(--font_base);
     color: var(--first_color);
     background-color: var(--second_color);
+}
+
+/*Header and HamButton*/
+
+.logo{
+    text-align: center;
+}
+
+.logo img {
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+
+#menu {
+    font-size: 2.5rem;
+    border: 0;
+    background: none;
+    color: var(--sixth_color);
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+#menu::before {
+    content: "☰";
+}
+
+#menu.open::before {
+    content: "X";
+}
+
+#navMenu {
+    overflow: hidden;
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    transition: max-height 2s ease-out;
+}
+
+#navMenu.open {
+    max-height: 500px;
+}
+
+#navMenu.open a {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+#navMenu ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+}
+
+#navMenu a {
+    display: none;
+    padding: 0.5rem 0;
+    text-decoration: none;
+    font-size: 200%;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+#navMenu.open a {
+    opacity: 1;
+}
+
+#navMenu a:hover {
+    background-color: transparent;
+    color: var(--first_color);
 }
