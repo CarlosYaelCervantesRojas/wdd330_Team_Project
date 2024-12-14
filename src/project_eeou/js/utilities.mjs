@@ -46,12 +46,12 @@ utility.loadHeader = async () => {
 
 }
 
-utility.getParam = (param) => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const product = urlParams.get(param);
-    return product;
-}
+// utility.getParam = (param) => {
+//     const queryString = window.location.search;
+//     const urlParams = new URLSearchParams(queryString);
+//     const product = urlParams.get(param);
+//     return product;
+// }
 
 utility.hambutton = () => {
 
@@ -77,18 +77,44 @@ utility.loadFooter = async () => {
 
 }
 
-utility.readTextFile = async (_file, element) => {
-    const respone = await fetch(_file);
-    if (!respone.ok) throw new Error(`Error: al leer el archivo ${_file}`);
+// utility.readTextFile = async (_file, element) => {
+//     const respone = await fetch(_file);
+//     if (!respone.ok) throw new Error(`Error: al leer el archivo ${_file}`);
 
-    const content = await response.text();
+//     const content = await response.text();
 
-    element.htmlcou
-}
+//     element.htmlcou
+// }
 
 utility.setLocalStorageJSON = (key, data) => {
-    localStorage.setItem(key, JSON.stringify(data))
-}
+    // Check if there is already a value in localStorage
+    const existingData = localStorage.getItem(key);
+
+    if (existingData) {
+        try {
+            // Parse the existing JSON data
+            const parsedData = JSON.parse(existingData);
+
+            // Check if the existing data is an array
+            if (Array.isArray(parsedData)) {
+                // Append the new data to the array
+                parsedData.push(data);
+                localStorage.setItem(key, JSON.stringify(parsedData));
+            } else {
+                // If not an array, convert it into an array and add the new data
+                const newData = [parsedData, data];
+                localStorage.setItem(key, JSON.stringify(newData));
+            }
+        } catch (error) {
+            console.error("Error parsing existing JSON:", error);
+            // If the existing data is not valid JSON, overwrite it with the new data as an array
+            localStorage.setItem(key, JSON.stringify([data]));
+        }
+    } else {
+        // If no data exists, save the new data as an array
+        localStorage.setItem(key, JSON.stringify([data]));
+    }
+};
 
 utility.setLocalStorageVariable = (key, item) => {
     localStorage.setItem(key, item)

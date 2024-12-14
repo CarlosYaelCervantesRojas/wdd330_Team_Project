@@ -1,49 +1,43 @@
 import utility from "./utilities.mjs";
 import fetchMovie from "./Source.mjs";
+import { templateTopMovie } from "./Source.mjs";
 
-//variables
-const movie = document.querySelector("#seek").value;
-console.log(movie);
+document.addEventListener("DOMContentLoaded", async () => {
+    // load header
+    await utility.loadHeader();
+    utility.hambutton();
+    utility.loadFooter();
 
-let movieInfo;
+    let movieInfo;
 
-await utility.loadHeader();
-utility.hambutton();
+    document.querySelector("#seek").addEventListener("click", async () => {
 
-// document.querySelector("button").addEventListener(
-//     "click", async () => {
-//         movieInfo = await fetchMovie("batman");
-//     }
-// )
-
-movieInfo = await fetchMovie("Back to the future");
-
-console.log(movie)
-
-document.querySelector("#poster").innerHTML = templateTopMovie(movieInfo);
+        const movie = document.querySelector("#movie").value.trim();
 
 
-utility.loadFooter();
+        //verify the input
+        if (movie === "") {
+            document.querySelector("#poster").innerHTML = "<p>Please try again.</p>";
+            return;
+        }
+
+        movieInfo = await fetchMovie(movie);
+
+        document.querySelector("#poster").innerHTML = templateTopMovie(movieInfo);
+
+        return movieInfo
+    });
 
 
-function templateTopMovie(movie) {
-    // Verifica que la película tenga datos válidos
-    if (!movie || movie.Response === "False") {
-        return `<p>No se encontró la película.</p>`;
-    }
+    const buttonFavorites = document.querySelector("#addCatalog")
 
-    // Crear el HTML para mostrar los datos de la película
-    const htmlTemplate = `
-        <div class="movie">
-            <h1>${movie.Title} (${movie.Year})</h1>
-            <p><strong>Director:</strong> ${movie.Director}</p>
-            <p><strong>Género:</strong> ${movie.Genre}</p>
-            <p><strong>Reparto:</strong> ${movie.Actors}</p>
-            <p><strong>Sinopsis:</strong> ${movie.Plot}</p>
-            <p><strong>Calificación IMDb:</strong> ${movie.imdbRating}</p>
-            <p><strong>Premios:</strong> ${movie.Awards}</p>
-            <img src="${movie.Poster}" alt="Poster de ${movie.Title}">
-        </div>
-    `;
-    return htmlTemplate;
-}
+    buttonFavorites.addEventListener("click", () => {
+        console.log(movieInfo);
+        utility.setLocalStorageJSON("favorites", movieInfo)
+    })
+
+});
+
+
+
+//adding the favories movies

@@ -14,3 +14,24 @@ async function fetchMovie(title) {
 }
 
 export default fetchMovie
+
+export function templateTopMovie(movie) {
+    // Verify
+    if (!movie || movie.Response === "False") {
+        return `<p>Sorry we didn't find your movie.</p>`;
+    }
+
+    const htmlTemplate = `
+        <div class="movie">
+            <h1>${movie.Title} (${movie.Year})</h1>
+            <p><strong>Director:</strong> ${movie.Director}</p>
+            <p><strong>Gender:</strong> ${movie.Genre}</p>
+            <p><strong>Cast:</strong> ${movie.Actors}</p>
+            <p><strong>Synopsis:</strong> ${movie.Plot}</p>
+            <p><strong>Calification IMDb:</strong> ${movie.imdbRating}</p>
+            <p><strong>Rewards:</strong> ${movie.Awards}</p>
+            <img src="${movie.Poster}" alt="Poster ${movie.Title}">
+        </div>
+    `;
+    return htmlTemplate;
+}
